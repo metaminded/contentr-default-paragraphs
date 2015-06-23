@@ -1,0 +1,12 @@
+= f.input :body, as: :text, input_html: {class: "code-editor-body-#{f.object.id}", rows: 15}
+
+javascript:
+  jQuery(function($){
+    if ($('body.test').length > 0) return;
+    var area = $('.#{"code-editor-body-#{f.object.id}"}');
+    var cm = CodeMirror.fromTextArea(area[0],{
+      mode: 'htmlmixed',
+      lineNumbers: true
+    });
+    cm.on("changes", function(){cm.save()});
+  })

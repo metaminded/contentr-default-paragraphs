@@ -1,0 +1,17 @@
+- file = paragraph.send :heroimage
+.hero-container
+  .carousel.slide.hero-image
+    /! Indicators
+    .carousel-inner role="listbox" 
+      .item.active
+        - if file.present?
+          = image_tag paragraph.heroimage.url
+        - if paragraph.description.present?
+          .carousel-caption.hidden-xs
+            .inner
+              h2 = paragraph.description
+          .visible-xs
+            .carousel-caption-mobile
+              = paragraph.description
+
+

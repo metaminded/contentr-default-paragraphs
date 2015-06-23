@@ -1,0 +1,14 @@
+- (1..Contentr::CarouselParagraph::N).each do |i|
+  .row
+    .col-sm-4
+      = f.input :"title#{i}"
+    .col-sm-3
+      = f.input :"link#{i}"
+    .col-sm-3
+      = f.input :"image#{i}"
+    .col-sm-1
+      = f.input :"remove_image#{i}", as: :boolean
+    .col-sm-1
+      - image = paragraph.send :"image#{i}"
+      - if image.present?
+        = image_tag image, class: 'img-responsive'

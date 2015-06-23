@@ -1,0 +1,8 @@
+.panel-group.contentr-accordion-paragraph id="contentr-accordion-#{paragraph.id}"
+  - paragraph.panels_each do |panel|
+    .panel
+      .panel-heading
+        h4.panel-title = link_to panel.header.presence || t('contentr.paragraphs.untitled_accordion_header'), "##{panel.area_name}", class: 'collapsed',  data: {parent: "contentr-accordion-#{paragraph.id}", toggle: 'collapse'}
+      .panel-collapse.collapse id=panel.area_name
+        .panel-body
+          = contentr_area panel.area_name

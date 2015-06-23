@@ -1,0 +1,4 @@
+= f.input :description
+= f.input :heroimage
+- if f.object.heroimage_id.present?
+  = f.input :remove_heroimage, as: :boolean

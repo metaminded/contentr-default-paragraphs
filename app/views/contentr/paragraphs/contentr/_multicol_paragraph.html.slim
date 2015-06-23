@@ -1,0 +1,11 @@
+- if paragraph.wrapper_class.present?
+  - w = paragraph.wrapper_class
+- if w
+  div class=w
+    .container
+      .row
+        - (1..6).each do |i|
+          - c = paragraph.col_class(i)
+          - if c
+            div class=c
+              = contentr_area paragraph.children_area_name(i)

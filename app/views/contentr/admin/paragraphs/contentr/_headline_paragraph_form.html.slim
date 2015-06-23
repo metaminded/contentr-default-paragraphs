@@ -1,0 +1,8 @@
+.row
+  .col-lg-6
+    = f.input :level, collection: Contentr::HeadlineParagraph::LEVELS, :include_blank => false
+  .col-lg-6
+    = f.input :color, collection: Contentr::HeadlineParagraph::COLORS
+.row
+  .col-lg-12
+    = f.input :headline

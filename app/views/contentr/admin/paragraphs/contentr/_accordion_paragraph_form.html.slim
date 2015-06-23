@@ -1,0 +1,65 @@
+= f.input :deleted, as: :hidden
+= f.input :positions, as: :hidden
+.panel-rows data-total-rows=num_of_accordion_rows_for(f.object) data-max-id=max_id_of_accordion_row_for(f.object)
+  - f.object.panels_each do |panel|
+    .row.panel-row data-panel-id=panel.id
+      .col-md-12
+        = f.input :headers, label: "Überschrift" do
+          .input-group
+            span.input-group-addon
+              span.panel-handle= fa_icon :bars
+            = f.input_field :headers, class: 'form-control', name: "accordion_paragraph[headers][#{panel.id}]", id: "accordion_paragraph_headers_#{panel.id}", value: panel.header
+            span.input-group-addon
+              = link_to '#', "data-delete-panel-id" => panel.id
+                = fa_icon :'trash-o'
+
+a#new-panel-btn.btn.btn-success href="#"
+  => fa_icon :plus
+  | Panel hinzufügen
+
+javascript:
+  jQuery(function($){
+    function setOrder() {
+      var a = []
+      $('.panel-rows').children().each(function(i,e){
+        a.push($(e).data('panelId'));
+      });
+      $('input#accordion_paragraph_positions').val(a.join(','));
+    }
+    $(".paragraph-edit-box .panel-rows").sortable({
+      itemSelector: ".panel-row",
+      containerSelector: '.panel-rows',
+      handle: '.panel-handle',
+      onDrop: setOrder
+    });
+    $('#new-panel-btn').click(function(){
+      var n = $('.panel-rows').data('maxId') + 1;
+      var $existingPanel = $('.row.panel-row[data-panel-id]:first');
+      var existingPanelId = $existingPanel.data('panel-id');
+      var html = $existingPanel.clone()[0].outerHTML;
+      var regexes = [ new RegExp('"'+ existingPanelId +'"',"g"),
+                      new RegExp('\\['+ existingPanelId +'\\]',"g"),
+                      new RegExp('_'+ existingPanelId +'"',"g")
+                    ];
+      html = html.replace(regexes[0], '"' + n + '"')
+                 .replace(regexes[1], '[' + n + ']')
+                 .replace(regexes[2], '_' + n + '"');
+      html = $(html);
+      html.find("input").val("");
+      html.appendTo($('.panel-rows'));
+      setOrder();
+      $('.panel-rows').data('maxId', n);
+      return false;
+    });
+    $(document).on('click', 'a[data-delete-panel-id]', function(){
+      if(!confirm('Feld wirklich löschen?')) return false;
+      var a = $(this);
+      var id = a.data('deletePanelId');
+      var old = $('input#accordion_paragraph_deleted').val();
+      var n = (old.length>0) ? (old + "," + id) : id;
+      $('input#accordion_paragraph_deleted').val(n);
+      $('.panel-row[data-panel-id="'+id+'"]').remove();
+      setOrder();
+      return false;
+    });
+  })

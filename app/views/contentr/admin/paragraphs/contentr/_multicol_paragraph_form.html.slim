@@ -1,0 +1,8 @@
+.alert.alert-info Es werden nur Spalten gerendert, die eine Klasse gesetzt haben.
+.row 
+  .col-sm-4
+    = f.input "wrapper_class"
+.row
+  - (1..6).each do |i|
+    .col-sm-4
+      = f.input "col#{i}_class"

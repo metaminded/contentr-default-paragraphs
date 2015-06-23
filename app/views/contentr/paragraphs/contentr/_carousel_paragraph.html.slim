@@ -1,0 +1,37 @@
+- n = Contentr::CarouselParagraph::N
+- id = "carousel-#{paragraph.id}"
+.carousel.slide.normal-carousel.hidden-xs data-ride="carousel" id=id
+  ol.carousel-indicators
+    - (1..n).each do |i|
+      - title = paragraph.send :"title#{i}"
+      - link = paragraph.send :"link#{i}"
+      - image = paragraph.send :"image#{i}"
+      - next unless image.present?
+      li data-target="##{id}" data-slide-to=i class=(i == 1 ? "active" : '')
+
+  .carousel-inner role="listbox"
+    - (1..n).each do |i|
+      - title = paragraph.send :"title#{i}"
+      - link = paragraph.send :"link#{i}"
+      - image = paragraph.send :"image#{i}"
+      - next unless image.present?
+      .item class=(i == 1 ? "active" : '')
+        - if link.present?
+          a href=link
+            img src=image alt=title
+        - else
+          img src=image alt=title
+        - if title.present?
+          .carousel-caption
+            .inner
+              h2= title
+  a.left.carousel-control href="##{id}" role="button" data-slide="prev"
+    span
+      i.fa.fa-angle-left aria-hidden="true"
+    / span.glyphicon-chevron-left.fa.fa-arrow-circle-left aria-hidden="true"
+    span.sr-only Vorherige
+  a.right.carousel-control href="##{id}" role="button" data-slide="next"
+    span
+      i.fa.fa-angle-right aria-hidden="true"
+    span.sr-only Nächste
+br

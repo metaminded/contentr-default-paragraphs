@@ -1,0 +1,3 @@
+.contentr-formgen-paragraph
+  - if paragraph.form.present?
+    = render_form id: paragraph.form_id, options: { flash: false }
