@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    contentr_paragraphs (0.0.1)
+    contentr-default-paragraphs (0.0.1)
       rails (~> 4.2.2)
 
 GEM
@@ -102,5 +102,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  contentr_paragraphs!
+  contentr-default-paragraphs!
   sqlite3

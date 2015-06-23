@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :contentr_paragraphs do
+# task :'contentr-default-paragraphs' do
 #   # Task goes here
 # end

@@ -1,2 +1,2 @@
-ContentrParagraphs::Engine.routes.draw do
+ContentrDefaultParagraphs::Engine.routes.draw do
 end
